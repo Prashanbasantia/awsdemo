@@ -1,0 +1,44 @@
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="sendmail{{student.admin.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                        <div class="modal-header py-2 ">
+                        <h5 class="modal-title" id="exampleModalLabel">Payments Reminder</h5>
+                        <button type="button" class="close bot_close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                        </div>
+                        <div class="modal-body">
+                            <form method="POST" action="{% url 'pay_remind_mailsend' %}">
+                                {% csrf_token %}
+                                <input type="hidden" name="student_id" value="{{student.id}}">
+                                <div class="form-group">
+                                  <label for="exampleInputEmail1">To</label>
+                                  <input type="email" name="email" disabled class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="" value="{{student.email}}">
+                                  
+                                </div>
+    
+                                <div class="form-group">
+                                    <label for="Subject">Subject</label>
+                                    <input type="text" name="subject" class="form-control" id="Subject" name="Subject"  placeholder="Enter Subject">
+                                    
+                                  </div>
+                                
+                                <div class="form-group">
+                                  <label for="Message">Message</label>
+                                  <textarea name="message" class="form-control" rows="5" id="Message" placeholder="Enter Message">
+    
+                                  </textarea>
+                                </div>
+                                
+                                <button type="submit" class="btn btn-primary">send</button>
+                              </form>
+                        </div>
+    
+                        
+                        </div>
+                        </div>
+                        </div>
+                        <!-- end modal -->
+

@@ -1,0 +1,38 @@
+<div class="modal fade" id="change_profile_Modal">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Change Profile Picture</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+          
+        
+          {% url 'student_photo_save' as student_photo_save %}
+        <form id="form1" runat="server" action="{{student_photo_save}}" method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          <input class="form-control" type='file' id="imgInp"  name="profile_photo" required>
+          <p><h5>Preview</h5>
+          <img id="blah"  class="rounded-circle" src="#" width="100px" height="100px" alt="Please Choose Image To  See Preview">
+        </p>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary btn-sm" name="submit">Change Profile</button>
+          </div>
+
+        </form>
+        
+
+        
+      </div>
+        
+       
+        
+      </div>
+    </div>
+  </div>
+  
+  

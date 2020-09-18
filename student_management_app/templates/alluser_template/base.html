@@ -1,0 +1,267 @@
+
+<!DOCTYPE html>
+{% load  static %}
+<html lang="en">
+<head>
+    
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+  <link rel="shortcut icon" href="{% static 'dist/img/logo.jpg' %}">
+  <link rel="stylesheet"  href="{% static 'dist/css/stylesheet.css' %}">
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+   <link href='https://fonts.googleapis.com/css?family=Abril Fatface' rel='stylesheet'>
+   <link href='https://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet'>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+   <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="{% static 'js/custome.min.js' %}"></script>
+
+<title>{% block title %}{% endblock title %}|Nabapravat Academy For Management Education</title>
+</head>
+<body>
+
+<header>
+  <div class="containers">
+      <input type="checkbox" name="" id="check">
+      
+      <div class="logo-container">
+          <span class="pr-3"><img src="{% static 'dist\img\logo.jpg' %}" width ="40px" height="40px" class="rounded"></span><h3 class="logo">NABAPRAVAT</h3>
+
+      </div>
+
+      <div class="menu-btn">
+          <div class="menu-links">
+              <ul>{% url 'home' as home %}
+                  <li class="menu-link {% if request.path == home %}active{% endif %}" style="--i: .6s">
+                      <a href="{{home}}">HOME</a>
+                  </li>
+                  {% url 'courses' as courses %}
+                  <li class="menu-link {% if request.path == courses %}active{% endif %}" style="--i: .85s">
+                      <a href="{{courses}}">COURSES</a>
+                      
+                  </li>
+                  {% url 'notice' as notice %}
+                  <li class="menu-link {% if request.path == notice %}active{% endif %}" style="--i: .85s">
+                      <a href="{{notice}}">NOTICE
+                        {% if request.user.is_authenticated %}
+                        {% if seen != 0 %}
+                        <span class="badge badge-secondary rounded-circle p-1">{{seen}}</span>
+                        {% endif %}
+                        {% endif %}
+                      </a>
+                      
+                  </li>
+                  <li class="menu-link" style="--i: 1.1s">
+                      <a href="#">NEWSFEED<i class="fas fa-caret-down"></i></a>
+                      <div class="menu-down">
+                          <ul>
+                              <li class="menu-down-link">
+                                  <a href="#">Event</a>
+                              </li>
+                              <li class="menu-down-link">
+                                  <a href="#">News</a>
+                              </li>
+                              <li class="menu-down-link">
+                                  <a href="career.html">Career</a>
+                                 
+                              </li>
+                              <div class="arrow"></div>
+                          </ul>
+                      </div>
+                  </li>
+                  {% url 'contactus' as contactus %}
+                  <li class="menu-link" style="--i: .85s">
+                    <a href="{{contactus}}">CONTACTUS</a>
+                    
+                </li>
+                  <li class="menu-link" style="--i: 1.35s">
+                      <a href="#">ABOUTUS</a>
+                  </li>
+
+                  {% if request.user.is_authenticated%}
+                  {% url 'student_profile' as student_profile %}
+                  {% url 'student_payment_history' as student_payment_history %}
+                  {% url 'student_apply_leave' as student_apply_leave %}
+                  <li class="menu-link {% if request.path == student_profile %}active{% endif %}
+                  {% if request.path == student_payment_history %}active{% endif %}
+                   {% if request.path == student_apply_leave %}active{% endif %}"
+                   style="--i: 1.1s">
+                    <a href="#">
+                      {% if request.user.profile_photo == '' %}
+                      {{request.user.first_name}}
+                      {% else %}
+                      <img src="{{request.user.profile_photo}}" class="rounded-circle" width="40px" height="40px">
+                      {% endif %}
+                     </a>
+                    <div class="menu-down">
+                        <ul>
+                            <li class="menu-down-link">
+                                <a href="{{student_profile}}">PROFILE</a>
+                            </li>
+                            
+                            <li class="menu-down-link">
+                                <a href="{{student_payment_history}}">PAYMENTS</a>
+                            </li>
+                            
+                            <li class="menu-down-link">
+                                <a href="{{student_apply_leave}}">APPLY LEAVE</a>
+                               
+                            </li>
+                            {% url 'logout' as logout %}
+                            <li class="menu-down-link">
+                              <a href="{{logout}}">LOGOUT</a>
+                          </li>
+                            <div class="arrow"></div>
+                        </ul>
+                    </div>
+                </li>
+                  
+              </ul>
+          </div>
+          {% else %}
+
+          <div class="log-sign" style="--i: 1.8s">
+              <a href="{% url 'show_login' %}" class="login-btn transparent">Log in</a>
+              
+          </div>
+          {% endif %}
+      </div>
+
+      <div class="hamburger-menu-container">
+          <div class="hamburger-menu">
+              <div></div>
+          </div>
+      </div>
+  </div>
+</header>
+
+{% block body %}
+
+
+{% endblock body %}
+
+
+
+
+
+
+
+<!-- modal 2 for profile change -->
+ <!-- The Modal -->
+
+  {% include 'alluser_template/change_profile_modal.html' %}
+
+
+<!-- end modal -->
+<script type="text/javascript">
+
+(function( $ ) {
+
+    //Function to animate slider captions 
+    function doAnimations( elems ) {
+        //Cache the animationend event in a variable
+        var animEndEv = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
+        
+        elems.each(function () {
+            var $this = $(this),
+                $animationType = $this.data('animation');
+            $this.addClass($animationType).one(animEndEv, function () {
+                $this.removeClass($animationType);
+            });
+        });
+    }
+    
+    //Variables on page load 
+    var $myCarousel = $('#carousel-example-generic'),
+        $firstAnimatingElems = $myCarousel.find('.item:first').find("[data-animation ^= 'animated']");
+        
+    //Initialize carousel 
+    $myCarousel.carousel({
+			interval: 6000
+		});
+    
+    //Animate captions in first slide on page load 
+    doAnimations($firstAnimatingElems);
+    
+    //Pause carousel  
+    //$myCarousel.carousel('pause');
+    
+    
+    //Other slides to be animated on carousel slide event 
+    $myCarousel.on('slide.bs.carousel', function (e) {
+        var $animatingElems = $(e.relatedTarget).find("[data-animation ^= 'animated']");
+        doAnimations($animatingElems);
+    });  
+    
+})(jQuery);
+//student profile
+jQuery(function ($) {
+
+  $(".sidebar-dropdown > a").click(function() {
+$(".sidebar-submenu").slideUp(200);
+if (
+  $(this)
+    .parent()
+    .hasClass("active")
+) {
+  $(".sidebar-dropdown").removeClass("active");
+  $(this)
+    .parent()
+    .removeClass("active");
+} else {
+  $(".sidebar-dropdown").removeClass("active");
+  $(this)
+    .next(".sidebar-submenu")
+    .slideDown(200);
+  $(this)
+    .parent()
+    .addClass("active");
+}
+});
+
+$("#close-sidebar").click(function() {
+$(".page-wrapper").removeClass("toggled");
+});
+$("#show-sidebar").click(function() {
+$(".page-wrapper").addClass("toggled");
+});
+
+
+ 
+ 
+});
+ // image preview
+ function readURL(input) {
+  if (input.files && input.files[0]) {
+      var reader = new FileReader();
+      
+      reader.onload = function (e) {
+          $('#blah').attr('src', e.target.result);
+      }
+      
+      reader.readAsDataURL(input.files[0]);
+  }
+}
+
+$("#imgInp").change(function(){
+  readURL(this);
+});
+
+
+$("#filter").click(function(){
+  $("#filter_option").hide();
+});
+
+
+ 
+</script>
+<script src="{% static 'dist/js/tinymce/tinymce.min.js' %}"></script>
+  <script src="{% static 'dist/js/tinymce/init-tinymce.js' %}"></script>
+{% block custom_js %}
+{% endblock custom_js %}
+</body>
+</html>

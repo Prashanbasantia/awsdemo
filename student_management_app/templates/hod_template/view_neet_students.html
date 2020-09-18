@@ -1,0 +1,88 @@
+{% extends 'hod_template/base_template.html' %}
+{% block page_title %}
+Manage Staff
+{% endblock page_title %}
+{% block main_content %}
+    <!-- Main content -->
+    <section class="content">
+      <div class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-6">
+              <h1 class="m-0 text-dark">
+                  View All NEET Students
+              </h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+              
+            </div><!-- /.col -->
+          </div><!-- /.row -->
+        </div>
+        <!-- /.container-fluid -->
+      </div>
+      <div class="container-fluid">
+
+
+           <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">NEET Students Details</h3>
+
+               
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body table-responsive p-0">
+                <table class="table table-hover text-nowrap">
+                  <thead>
+                    <tr>
+                      <th>Full Name</th>
+                      <th>Father Name</th>
+                      <th>Phone</th>
+                      <th>Email</th>
+                      <th>Applied  Course</th>
+                      <th>Delete</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  {% for ns in neet_students %}
+                    <tr>
+                      <td><a href="/neet_student_pdf/{{ ns.id }}">{{ ns.full_name }}</a></td>
+                      <td>{{ ns.father_name }}</td>
+                      <td>{{ ns.phone_number}}</td>
+                      <td>{{ ns.email }}</td>
+                      <td>{{ ns.course }}</td>
+                      <td><a href="#" data-toggle="modal" data-target="#delete_neet_student{{n.id}}"><i class="fas fa-times-circle text-danger"></i></a></td>
+                    </tr>
+                    <div class="modal fade" id="delete_neet_student{{n.id}}" tabindex="-1" role="dialog" aria-labelledby="delete_notice" aria-hidden="true">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          
+                          <div class="modal-body">
+                            <h4 class="text-info">Delete NEET Applicant</h4>
+                            <p>
+                            Are you sure to Delete this Applicant <strong>{{ ns.full_name }}</strong> !
+                          </p>
+                          <div class="float-right">
+                            <button class="btn btn-secondary btn-sm" type="button" data-dismiss="modal">Cancel</button>
+                            <a class="btn btn-danger btn-sm" href="/delete_neet_student/{{ ns.id }}">Delete</a>
+                          </div>
+                          </div>
+                          
+                        </div>
+                      </div>
+                    </div>
+                  {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- /.content -->
+{% endblock main_content %}
+

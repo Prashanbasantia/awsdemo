@@ -1,0 +1,136 @@
+{% extends 'accountant_template/base_template.html' %}
+{% block page_title %}
+
+{% endblock page_title %}
+{% block main_content %}
+    <!-- Main content -->
+    <section class="content">
+      <div class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-6">
+              <h1 class="m-0 text-dark">
+                Check All  Payments of Students <strong class="text-capitalize">{{student.first_name}}  {{student.last_name}}</strong>
+              </h1>
+            </div>
+            <div class="col-sm-6">
+               
+              <a href="{% url 'check_students_payments' %}" class="btn btn-outline-primary float-right ml-3">Check Students Payments</a>
+              <a href=" " class="btn btn-outline-primary float-right" data-toggle="modal" data-target="#sendmail{{student.admin.id}}">Send Mail</a>
+              
+  
+            </div>
+          </div>
+        </div>
+        
+      </div>
+      <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm -6">
+              <div class="form-group">
+                {% if messages %}
+                  {% for message in messages %}
+                  {% if message.tags == 'error' %}
+                  <div class="alert alert-danger" style="margin-top:10px">{{ message }}</div>
+                  {% endif %}
+                  {% if message.tags == 'success' %}
+                  <div class="alert alert-success" style="margin-top:10px">{{ message }}</div>
+                  {% endif %}
+                  {% endfor %}
+                {% endif %}
+              </div>
+                <h4>Payments Details </h4>
+                
+                 
+                <p><strong>Total Paid</strong> : &#8377; {{ tot }}</p>
+                
+               
+        
+            </div>
+            <div class="col-sm-6">
+                <form  class="form-inline float-right" action="/student_payment_details/{{student_id}}" method="get">
+                    
+                    <label for="filter" class="mr-sm-2"> <i class="fas fa-filter text-primary"></i>&nbsp; Filter &nbsp;</label>
+                       <select class="form-control mb-2 mr-sm-2" name="filter" id="filter">
+                        <option value = "All">All Payments</option>
+                        <option value="Course Fee">Course Fee</option>
+                        <option value="Hostel Fee">Hostel Fee</option>
+                        <option value="Adminssion Fee">Adminssion Fee</option>
+                        <option value="Form FillUp Fee">Form FillUp  Fee</option>
+                    </select>
+                     
+                    <button type="submit" id ="ug_apply" class="btn btn-outline-primary mb-2">Apply</button>
+                </form>  
+            </div>
+          <div class="form-group col-md-12">
+              
+            {% for tran in transac %}
+                
+            <div class="card card-primary mt-2">
+                
+                
+                   <div class="card-body" style="padding: 5px 10px;">
+                       <div class="row">
+                           <div class="col-sm-6">
+                               <ul>
+                                <li>
+                                    <strong>Ammount : </strong>&#8377; {{tran.ammount}}
+                                    
+                                 </li>
+                                 <li>
+                                    <strong>Fee Type : </strong>  {{tran.transaction_type}}    
+                                 </li>
+                               </ul>
+                           </div>
+                           <div class="col-sm-6">
+                            <ul>
+                                <li>
+                                    <strong>Date : </strong> <span class="text-capitalize">{{tran.created_at}}</span> 
+        
+                                </li>
+                                
+                                <li>
+                                   
+                                   <strong> Receipt Id : </strong>  {{tran.receipt_id}}
+                                </li>
+                               
+                            </ul>
+                           </div>
+                       </div>
+                    
+                    
+                  </div>
+                  <!-- /.card-body -->
+                </div>
+                {% endfor %}
+        
+          </div>
+         </div>
+    
+      </div>
+    </section>
+    {% include 'accountant_template/payment_reminder_mail_modal.html' %}
+    <!-- /.content -->
+{% endblock main_content %}
+{% block custom_css %}
+<style>
+.bot_close:focus{
+  outline:none !important;
+  
+}
+.bot_close:hover{
+  color:rgb(255, 72, 0);
+  
+}
+.bot_close{
+  color:red;
+  
+}
+</style>
+{% endblock custom_css %}
+
+
+
+
+
+  

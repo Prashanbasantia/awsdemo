@@ -1,0 +1,67 @@
+{% extends 'accountant_template/base_template.html' %}
+{% block page_title %}
+Add New Notice
+{% endblock page_title %}
+{% block main_content %}
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+                <div class="row">
+                  <div class="col-sm-12"><a href="{% url 'notices' %}" class="btn btn-outline-primary float-right mt-1">View All Notice</a></div>
+                <div class="col-md-12 mt-2">
+              <!-- general form elements -->
+              <div class="card card-primary">
+                <div class="card-header">
+                  <h3 class="card-title">Add New Notice</h3>
+                </div>
+                <!-- /.card-header -->
+                <!-- form start -->
+                 <form action="{% url 'add_notice_save' %}" method="post">
+                  <div class="card-body">
+                    <div class="form-group">
+                        {% if messages %}
+                          {% for message in messages %}
+                          {% if message.tags == 'error' %}
+                          <div class="alert alert-danger" style="margin-top:10px">{{ message }}</div>
+                          {% endif %}
+                          {% if message.tags == 'success' %}
+                          <div class="alert alert-success" style="margin-top:10px">{{ message }}</div>
+                          {% endif %}
+                          {% endfor %}
+                        {% endif %}
+                      </div>
+                     <div class="form-group">
+                      <label>Subject </label>
+                         {% csrf_token %}
+                      <input type="text" name="subject" class="form-control" placeholder=" Subject">
+                    </div>
+                    <div class="form-group">
+                      <label>Content</label>
+                      <textarea class="form-control tinymce" rows="15" name="content"></textarea>
+                    </div>
+                     
+  
+                  </div>
+                  <!-- /.card-body -->
+  
+                  <div class="card-footer">
+                    <button type="submit" class="btn btn-primary btn-block" id="fetch_student">Add Notice</button>
+                  </div>
+                 </form>
+              </div>
+  
+              <!-- /.card -->
+            
+  
+  
+  
+            </div>
+            </div>
+        </div>
+      </section>
+{% endblock main_content %}
+{% block custom_js %}
+<script>
+    
+</script>
+{% endblock custom_js %}

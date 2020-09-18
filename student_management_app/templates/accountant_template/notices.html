@@ -1,0 +1,61 @@
+{% extends 'accountant_template/base_template.html' %}
+{% block page_title %}
+Take Attendance
+{% endblock page_title %}
+{% block main_content %}
+    <!-- Main content -->
+    
+      
+       <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+              <div class="col-sm-12"><a href="{% url 'add_notice' %}" class="btn btn-outline-primary float-right mt-1">Add New Notice</a></div>
+              <div class="col-md-12">
+              <!-- general form elements -->
+              
+              {% for n in notice %}
+              <div class="card card-light mt-2">
+                <div class="card-header pb-0">
+                  <p> <span class="flaot-left">{{n.created_at |date:'d-m-Y'}}</span>
+                  <span class="float-right"><a href="/edit_notice/{{ n.id }}"><i class="fas fa-pen text-primary"></i></a> &nbsp; &nbsp; 
+                    <a href="#" data-toggle="modal" data-target="#delete_notice_{{n.id}}"><i class="fas fa-times-circle text-danger"></i></a></span></p>
+                </div>
+                <div class="card-body">
+                  <p style="text-transform: capitalize; font-size:18px;"><b>{{n.subject |safe}}</b></p>
+                  <p style="color:gray;">{{n.content |safe}}</p>
+
+                  </div>
+              </div>
+              <div class="modal fade" id="delete_notice_{{n.id}}" tabindex="-1" role="dialog" aria-labelledby="delete_notice" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    
+                    <div class="modal-body">
+                      <h4 class="text-info">Delete Notice</h4>
+                      <p>
+                      Are you sure to Delete this Notice !
+                    </p>
+                    <div class="float-right">
+                      <button class="btn btn-secondary btn-sm" type="button" data-dismiss="modal">Cancel</button>
+                      <a class="btn btn-danger btn-sm" href="/delete_notice/{{n.id }}">Delete</a>
+                    </div>
+                    </div>
+                    
+                  </div>
+                </div>
+              </div>
+              {% endfor %}
+
+            </div>
+          </div>
+        </div>
+        
+      </section>
+    
+    <!-- /.content -->
+{% endblock main_content %}
+{% block custom_js %}
+<script>
+    
+</script>
+{% endblock custom_js %}

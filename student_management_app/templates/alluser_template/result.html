@@ -1,0 +1,45 @@
+{% extends "alluser_template/base.html" %}
+{% load static %}
+
+{% block title %}
+Notice
+{% endblock title %}
+{% block noticeactive %}active{% endblock noticeactive %}
+{% block body %}
+<div class="container" style="margin-top: 20%;">
+  <div class="row">
+    <div class="col-sm-12">
+<h2 class="text-center">{{stream}} {{semester}} Semester Result</h2>
+  
+<div class="table-responsive">
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Subject</th>
+        <th>Total Theroy Mark</th>
+        <th>Secured Theroy Mark</th>
+        <th>Total Practical Mark</th>
+        <th>Secured Practical Mark</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for r in result %}
+      <tr>
+        <td>{{r.subject_name}}</td>
+        <td>{{r.total_mark}}</td>
+        <td>{{r.secured_mark}}</td>
+        <td>{{r.prac_total_mark}}</td>
+        <td>{{r.prac_secured_mark}}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+</div>
+</div>
+</div>
+
+{% endblock body %}
+  
+  

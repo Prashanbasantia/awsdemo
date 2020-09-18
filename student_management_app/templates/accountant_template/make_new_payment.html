@@ -1,0 +1,262 @@
+{% extends 'accountant_template/base_template.html' %}
+{% block page_title %}
+Make new Payment
+{% endblock page_title %}
+{% block main_content %}
+    <!-- Main content -->
+    <section class="content">
+    
+             
+
+   
+      <div class="container">
+                    <div class="row">
+              <div class="col-md-12">
+            <!-- general form elements -->
+             <form action="{% url 'make_new_payment_save' %}" method="post">
+                 {% csrf_token %}
+                 <div class="form-group">
+                    {% if messages %}
+                      {% for message in messages %}
+                      {% if message.tags == 'error' %}
+                      <div class="alert alert-danger" style="margin-top:10px">{{ message }}</div>
+                      {% endif %}
+                      {% if message.tags == 'success' %}
+                      <div class="alert alert-success" style="margin-top:10px">{{ message }}</div>
+                      {% endif %}
+                      {% endfor %}
+                    {% endif %}
+                  </div>
+            <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title">Add Results</h3>
+              </div>
+              <!-- /.card-header -->
+              <!-- form start -->
+                <div class="card-body">
+                  <div id ="student_data" ></div>
+                   <div class="form-group">
+                    <label>Roll No </label>
+                    <input type="text"  class="form-control" name="roll_number" id="roll_number" placeholder="Enter Student Roll Number">
+                  </div>
+                  
+                  
+
+                  <div class="form-group">
+                    <label>Fee tye </label>
+                    <select class="form-control" name="fee_type" id="subject">
+                        <option value="Course Fee">Course Fee</option>
+                        <option value="Hostel Fee">Hostel Fee</option>
+                        <option value="Adminssion Fee">Adminssion Fee</option>
+                        <option value="Form FillUp Fee">Form FillUp  Fee</option>
+                    </select>
+                  </div>
+                  
+                    <div class="form-group">
+                     <label>Ammount </label>
+                     <input type="text"  class="form-control" name="ammount" id="ammount" onkeyup="word.innerHTML=convertNumberToWords(this.value)"
+                      placeholder="Enter Amoumt">
+                      <div class="pt-2 pl-2" id="word"></div>
+                   </div>
+                   
+
+                </div>
+                <!-- /.card-body -->
+
+                <div class="card-footer">
+                  <button type="submit" class="btn btn-primary btn-block">Add Money</button>
+                </div>
+                <div id="student_data" class="card-footer">
+
+                </div>
+            </div>
+             </form>
+            <!-- /.card -->
+
+
+
+          </div>
+          </div>
+
+      </div>
+    </section>
+    <!-- /.content -->
+{% endblock main_content %}
+
+{% block custom_js %}
+<script>
+  function convertNumberToWords(amount) {
+    var words = new Array();
+    words[0] = '';
+    words[1] = 'One';
+    words[2] = 'Two';
+    words[3] = 'Three';
+    words[4] = 'Four';
+    words[5] = 'Five';
+    words[6] = 'Six';
+    words[7] = 'Seven';
+    words[8] = 'Eight';
+    words[9] = 'Nine';
+    words[10] = 'Ten';
+    words[11] = 'Eleven';
+    words[12] = 'Twelve';
+    words[13] = 'Thirteen';
+    words[14] = 'Fourteen';
+    words[15] = 'Fifteen';
+    words[16] = 'Sixteen';
+    words[17] = 'Seventeen';
+    words[18] = 'Eighteen';
+    words[19] = 'Nineteen';
+    words[20] = 'Twenty';
+    words[30] = 'Thirty';
+    words[40] = 'Forty';
+    words[50] = 'Fifty';
+    words[60] = 'Sixty';
+    words[70] = 'Seventy';
+    words[80] = 'Eighty';
+    words[90] = 'Ninety';
+    amount = amount.toString();
+    var atemp = amount.split(".");
+    var number = atemp[0].split(",").join("");
+    var n_length = number.length;
+    var words_string = "";
+    if (n_length <= 9) {
+        var n_array = new Array(0, 0, 0, 0, 0, 0, 0, 0, 0);
+        var received_n_array = new Array();
+        for (var i = 0; i < n_length; i++) {
+            received_n_array[i] = number.substr(i, 1);
+        }
+        for (var i = 9 - n_length, j = 0; i < 9; i++, j++) {
+            n_array[i] = received_n_array[j];
+        }
+        for (var i = 0, j = 1; i < 9; i++, j++) {
+            if (i == 0 || i == 2 || i == 4 || i == 7) {
+                if (n_array[i] == 1) {
+                    n_array[j] = 10 + parseInt(n_array[j]);
+                    n_array[i] = 0;
+                }
+            }
+        }
+        value = "";
+        for (var i = 0; i < 9; i++) {
+            if (i == 0 || i == 2 || i == 4 || i == 7) {
+                value = n_array[i] * 10;
+            } else {
+                value = n_array[i];
+            }
+            if (value != 0) {
+                words_string += words[value] + " ";
+            }
+            if ((i == 1 && value != 0) || (i == 0 && value != 0 && n_array[i + 1] == 0)) {
+                words_string += "Crores ";
+            }
+            if ((i == 3 && value != 0) || (i == 2 && value != 0 && n_array[i + 1] == 0)) {
+                words_string += "Lakhs ";
+            }
+            if ((i == 5 && value != 0) || (i == 4 && value != 0 && n_array[i + 1] == 0)) {
+                words_string += "Thousand ";
+            }
+            if (i == 6 && value != 0 && (n_array[i + 1] != 0 && n_array[i + 2] != 0)) {
+                words_string += "Hundred and ";
+            } else if (i == 6 && value != 0) {
+                words_string += "Hundred ";
+            }
+        }
+        words_string = words_string.split("  ").join(" ");
+    }
+    return words_string;
+}
+
+
+  //end money word converter
+    $(document).ready(function(){
+        $("#roll_number").keyup(function(){
+            var roll_number=$(this).val();
+
+            if(roll_number!=""){
+                $.ajax({
+                    url:"{% url 'check_rollno_exist' %}",
+                    type:'POST',
+                    data:{roll_number:roll_number}
+                })
+                .done(function(response){
+                    console.log(response);
+                    if(response=="True"){
+                        $(".roll_number_error").remove();
+                        $("<span class='roll_number_error' style='padding: 5px;color: green;font-weight: bold;'>Roll No Available</span>").insertAfter("#roll_number");
+                    }
+                    else{
+                        $(".roll_number_error").remove();
+                        $("<span class='roll_number_error' style='padding: 5px;color: red;font-weight: bold;'>Roll No  Not Available</span>").insertAfter("#roll_number");
+                    }
+                })
+                .fail(function(){
+                    console.log("failed");
+                })
+            }
+            else{
+                $(".roll_number_error").remove();
+            }
+
+        });
+
+    });
+    //fetch details
+    $(document).ready(function(){
+      $("#roll_number").focusout(function(){
+          var roll_number=$("#roll_number").val()
+          
+          $.ajax({
+              url:'{% url "fetch_rollno" %}',
+              type:'POST',
+              data:{roll_number:roll_number},
+          })
+          .done(function(response){
+            var json_data=JSON.parse(response);
+            console.log(json_data)
+            var div_data="<div class='text-primary'><p>Name: "+json_data['name']+"<br>Email: "+json_data['email']+"</p>";
+
+            div_data+="</div>";
+            div_data+="<input type = 'hidden' name = 'student_id' value="+json_data['id']+">";
+
+            div_data+="</div>";
+            div_data+="<input type = 'hidden' name = 'student_name' value='"+json_data['name']+"'>";
+
+            div_data+="</div>";
+          
+
+            $("#student_data").html(div_data);
+
+        })
+          .fail(function(){
+              console.log("failed");
+          })
+     
+
+  });
+  
+
+});
+
+$('input[id="ammount"]').keypress
+(
+    function(event)
+    {
+        if (event.keyCode == 46 || event.keyCode == 8)
+        {
+        //do nothing
+        }
+        else 
+        {
+            if (event.keyCode < 48 || event.keyCode > 57 ) 
+            {
+			    event.preventDefault();	
+			}	
+        }
+    }
+);
+        
+
+</script>
+
+{% endblock custom_js %}

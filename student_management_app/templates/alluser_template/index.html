@@ -1,0 +1,390 @@
+{% extends "alluser_template/base.html" %}
+{% load static %}
+
+{% block title %}
+Home
+{% endblock title %}
+
+{% block homeactive %}active{% endblock homeactive %}
+
+{% block body %}
+
+<!-- start slider -->
+<section class="main_slider">
+  <div id="demo" class="carousel slide" data-ride="carousel">
+    <ul class="carousel-indicators">
+      <li data-target="#demo" data-slide-to="0" class="active"></li>
+      <li data-target="#demo" data-slide-to="1"></li>
+      <li data-target="#demo" data-slide-to="2"></li>
+    </ul>
+    
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="{% static 'dist\img\nameslide1.jpg' %} ">
+        <div class="carousel-caption">
+          <h3>Los Angeles</h3>
+          <p>We had such a great time in LA!</p>
+        </div>   
+      </div>
+      <div class="carousel-item">
+        <img src="{% static 'dist\img\s2.jpg' %}">
+        <div class="carousel-caption">
+          <h3>Chicago</h3>
+          <p>Thank you, Chicago!</p>
+        </div>   
+      </div>
+      <div class="carousel-item">
+        <img src="{% static 'dist\img\s3.jpg' %}" >
+        <div class="carousel-caption">
+          <h3>New York</h3>
+          <p>We love the Big Apple!</p>
+        </div>   
+      </div>
+    </div>
+    <a class="carousel-control-prev slide_arrow-prev" href="#demo" data-slide="prev">
+      <i class="fas fa-chevron-circle-left" style="font-size:30px;color:#fff;"></i>
+    </a>
+    <a class="carousel-control-next slide_arrow-next" href="#demo" data-slide="next">
+      <i class="fas fa-chevron-circle-right" style="font-size:30px;color:#fff;"></i>
+    </a>
+  </div>
+  </section>
+  
+  <!-- ennd slider -->
+  <section class="neet_apply">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-12">
+          {% url 'neet_apply'  as apply_online%}
+          <p class="text-center pt-3 neet_apply_link">  <i class="fas fa-hand-point-right"></i> 
+             <a href="{{apply_online}}">APPLY ONLINE</a> 
+             <i class="fas fa-hand-point-left"></i></p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- heading background -->
+  
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-12 hdback">
+        <h1 class="text-center">WELCOMES TO NABAPRAVAT</h1>
+        <h6 class="text-center">Affiliated To Uttkal University</h6>
+        <p class="text-center">Recognised By Govt. Of Odisha</p>
+      </div>
+    </div>
+  </div>
+  
+  
+  <!-- end heading background -->
+  <!-- 1st row -->
+  <div class="container ">
+    <div class="row row_col">
+      <div class="col-md-4 first_row_col_1">
+        <h1>About us</h1>
+        <p>NABAPRAVAT values academic achievement through student , faculty and staff working diligently and co-operatively. Educational experience are provided that will empower of each student to succeed. The institution values knowledge understanding ,wisdom diligence ,high principles enthusiasm and responsibility , along with consideration for all peoples . This is the legacy we desire to pass on to the student of Nabapravat Academy for Management Education.
+        </p>
+        <p><button class ="readmore_btn"> <a href="#" class="readmore_link"> Read More</a></button></p>
+      </div>
+  
+      <div class="col-md-7  first_row_col_2">
+        <h1>Notice Board</h1>
+        <div class="container" style="overflow:auto; height:88%; width:100%;">
+          {% for notice in notices %}
+        <div class="row border border-warning mt-2">
+      <div class="col-sm-12 pt-2">
+        <p class="flaot-left"><strong>{{notice.subject | truncatechars:20 }}</strong></p><span style="float:right;margin-top:-40px; color:#108d51;"> {{notice.created_at|date:"F j"}}</span>
+        <p><small>{{notice.content|safe | truncatechars:200 }}</small><a href="{% url 'notice'%}" class="link">read more</a></p>
+
+      </div>
+      
+    </div>
+
+    {% endfor %}
+ 
+      </div>
+    </div>
+    </div>
+  </div>
+  <!-- end 1st row -->
+  
+  <!-- course short details -->
+ 
+  <section class="course-section course-bg-white course-border-top">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12  text-left section-heading course-animate">
+          <h2>Our Featured Courses</h2>
+  
+        </div>
+    </div>
+  <div class="container">
+  <div class="row">
+    <div class="col-lg-6">
+      <div class="course-service-2 course-animate">
+          <div class="image">
+              <div class="image-bg">
+                <img src="{% static 'dist/img/bca.jpg' %}">
+              </div>
+          </div>
+  
+      <div class="text">
+        <h3>BCA</h3>
+            <p>Laboriosam pariatur modi praesentium deleniti molestiae officiis atque numquam quos quis nisi voluptatum architecto rerum error.</p>
+            <p><a href="courses.html#bca" class="btn">Read More</a> </p>
+      </div>
+    </div>
+  
+    <div class="course-service-2 course-animate">
+          <div class="image">
+              <div class="image-bg">
+                <img src="{% static 'dist/img/bscitm.jpg' %}">
+              </div>
+          </div>
+  
+      <div class="text">
+        <h3>BSc ITM</h3>
+            <p>Laboriosam pariatur modi praesentium deleniti molestiae officiis atque numquam quos quis nisi voluptatum architecto rerum error.</p>
+            <p><a href="courses.html#itm" class="btn ">Read More</a> </p>
+      </div>
+    </div>
+  
+      <div class="course-service-2 course-animate">
+          <div class="image">
+              <div class="image-bg">
+                <img src="{% static 'dist/img/bsccompt.jpg' %}">
+              </div>
+          </div>
+  
+      <div class="text">
+        <h3>BSc Computer Sc.</h3>
+            <p>Laboriosam pariatur modi praesentium deleniti molestiae officiis atque numquam quos quis nisi voluptatum architecto rerum error.</p>
+            <p><a href="courses.html#cs" class="btn ">Read More</a> </p>
+      </div>
+    </div>
+  
+      <div class="course-service-2 course-animate">
+          <div class="image">
+              <div class="image-bg">
+                <img src="{% static 'dist/img/bba.jpg' %}" >
+              </div>
+          </div>
+  
+      <div class="text">
+        <h3>BBA</h3>
+            <p>Laboriosam pariatur modi praesentium deleniti molestiae officiis atque numquam quos quis nisi voluptatum architecto rerum error.</p>
+            <p><a href="courses.html#bba" class="btn">Read More</a> </p>
+      </div>
+    </div>
+  
+  </div>
+    <div class="col-lg-6">
+    <div class="course-service-2 course-animate">
+          <div class="image">
+              <div class="image-bg">
+                <img src="{% static 'dist/img/msccompt.jpg'%} ">
+              </div>
+          </div>
+  
+      <div class="text">
+        <h3>MSc Computer Sc.</h3>
+            <p>Laboriosam pariatur modi praesentium deleniti molestiae officiis atque numquam quos quis nisi voluptatum architecto rerum error.</p>
+            <p><a href="courses.html#mcs" class="btn">Read More</a> </p>
+      </div>
+    </div>
+    <div class="course-service-2 course-animate">
+          <div class="image">
+              <div class="image-bg">
+                <img src="{% static 'dist/img/msw.jpg' %}">
+              </div>
+          </div>
+  
+      <div class="text">
+        <h3>MSW</h3>
+            <p>Laboriosam pariatur modi praesentium deleniti molestiae officiis atque numquam quos quis nisi voluptatum architecto rerum error.</p>
+            <p><a href="courses.html#msw" class="btn">Read More</a> </p>
+      </div>
+    </div>
+      <div class="course-service-2 course-animate">
+          <div class="image">
+              <div class="image-bg">
+                <img src="{% static 'dist/img/mfc.jpg' %}">
+              </div>
+          </div>
+  
+      <div class="text">
+        <h3>MFC</h3>
+            <p>Laboriosam pariatur modi praesentium deleniti molestiae officiis atque numquam quos quis nisi voluptatum architecto rerum error.</p>
+            <p><a href="courses.html#mfc" class="btn">Read More</a></p>
+      </div>
+    </div>
+  
+  </div>
+  </div>
+  </div>
+  </section>
+  <!-- end course short details -->
+  
+  <!-- why nabapravt -->
+  <section class="why_name">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 text-left ">
+          <h2>Why Nabapravat</h2>
+        </div>
+      </div>
+    </div>
+  
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="why_icon_text">
+          <div class="icon"><i class="fas fa-check"></i></div>
+        
+        <div class="text">
+          <h3>EXPERIENCED FACULTIES</h3>
+          <p>Nabapravat college provides highly experienced faculties in all over odisha with minimum experience of 3 years in all subjects</p>
+        </div>
+      </div>
+      
+        <div class="why_icon_text">
+          <div class="icon"><i class="fas fa-check"></i></div>
+        
+        <div class="text">
+          <h3>SMART EDUCATION</h3>
+          <p>
+            Smart Education is not smart device education, but rather an educational paradigm shift for digital natives. Teachers cannot imagine what our future will be like after 30 years, so they have to study 21st century skills and know how to apply them to their traditional classroom with ICT."
+          </p>
+        </div>
+      </div>
+  
+          <div class="why_icon_text">
+          <div class="icon"><i class="fas fa-check"></i></div>
+        
+        <div class="text">
+          <h3>TRANSPOTATION FACILITY</h3>
+          <p>
+              Public transportation is available for college at any time.</p>
+        </div>
+      </div>
+  </div>
+    <div class="col-lg-6">
+  
+          <div class="why_icon_text">
+          <div class="icon"><i class="fas fa-check"></i></div>
+        
+        <div class="text">
+           <h3>Outdoor Play Time</h3>
+          <p>Nabapravat have a small play ground where students can spend time. Time for outdoor play is diminishing, contributing to more sedentary lifestyles</p>
+        </div>
+      </div>
+  
+  
+          <div class="why_icon_text">
+          <div class="icon"><i class="fas fa-check"></i></div>
+        
+        <div class="text">
+           <h3>Digital Library</h3>
+          <p>We have a digital library where student can read any book which is available on internet.</p>
+        </div>
+      </div>
+  
+        <div class="why_icon_text">
+          <div class="icon"><i class="fas fa-check"></i></div>
+        
+        <div class="text">
+        
+           <h3>ALL TYPES PRATICAL TRAINING</h3>
+          <p>The College offers practical training courses As per the Syllabus of Utkal University .</p>
+        </div>
+      </div>
+    </div>
+  
+    </div>
+  </div>
+  
+  </section>
+  <!-- end why nabapravat -->
+  <!-- alumni message -->
+  <section class="alumni_msg">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12  text-left alumni-heading">
+          <h2>Our Alumni Says</h2>
+  
+        </div>
+    </div>
+  </div>
+  
+  
+    <div id="msg" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+      <li data-target="#msg" data-slide-to="0" class="active"></li>
+      <li data-target="#msg" data-slide-to="1"></li>
+      <li data-target="#msg" data-slide-to="2"></li>
+      <li data-target="#msg" data-slide-to="3"></li>
+    </ol>
+    <div class="carousel-inner">
+      <div class="carousel-item active" id = "cr_item">
+        
+        <div class="cp">
+          <img src="{% static 'dist/img/shubhasis.jpg' %}">
+          
+          <p><span><i class="fas fa-quote-left"></i></span> This institute is one of the best institute in Odisha for BCA and BSC. ITM course. Our Director Panda sir, Principal sir and all the faculties are friendly. As per my experience, Nabapravat is the best and I always miss this institute. So I suggest you guys who want to learn these course, he is the best in name, please follow his instruction and class note. I am sure you will become not only a good students but also a good person.<span><i class="fas fa-quote-right"></i></span></p>
+          <h3>Mr. Rajnikant Jena</h3>
+          <h5>Ex Student</h5>
+          <a href="#">Ceo & Founder Zeilotech</a>
+        </div>   
+      </div>
+      <div class="carousel-item" id = "cr_item">
+     
+        <div class="cp">
+          <img src="{% static 'dist/img/shubhasis.jpg' %}">
+          
+          <p><span><i class="fas fa-quote-left"></i></span> Nabapravat is the best institution to study and create a bright future.. Nabapravat group of institution is the best...Go to the prestigious organization to study and see the bright future... BE GOOD DO GOOD Many congratulations our director mr.panda sir.<span><i class="fas fa-quote-right"></i></span></p>
+          <h3>Mr. Jyotiprakash Nayak</h3>
+          <h5>Ex Student</h5>
+          <a href="#">UI Developer</a>
+        </div>   
+      </div>
+      <div class="carousel-item" id = "cr_item">
+        <div class="cp">
+          <img src="{% static 'dist/img/shubhasis.jpg' %}">
+          
+          <p><span><i class="fas fa-quote-left"></i></span> Its the great feeling for me after studying at Nabapravat Academy For Management Education. The Organization gives me the platform where I will stand and grow my life in secure . I always says that "Our NABAPRAVAT is best ,our MD sir best,our principal sir best, our faculties are best ,so that we all students are the best.<span><i class="fas fa-quote-right"></i></span></p>
+          <h3>Mr. Subhasis Mohabhoi</h3>
+          <h5>Ex Student</h5>
+          <a href="#">Web Developer</a>
+        </div>   
+      </div>
+       <div class="carousel-item" id = "cr_item">
+        <div class="cp">
+          <img src="{% static 'dist/img/shubhasis.jpg' %}">
+          
+          <p><span><i class="fas fa-quote-left"></i></span> This institute is one of the best institute in Odisha for BCA and BSC. ITM course. Our Director Panda sir, Principal sir and all the faculties are friendly. As per my experience, Nabapravat is the best and I always miss this institute. So I suggest you guys who want to learn these course, he is the best in name, please follow his instruction and class note.  I hope this will be useful to some people.<span><i class="fas fa-quote-right"></i></span></p>
+          <h3>Mr. Alom</h3>
+          <h5>Ex Student</h5>
+          <a href="#">Software Developer</a>
+        </div>   
+      </div>
+  
+  
+    </div>
+    <a class="carousel-control-prev" href="#msg" data-slide="prev">
+      <i class="fas fa-chevron-left"></i>
+    </a>
+    <a class="carousel-control-next" href="#msg" data-slide="next">
+      <i class="fas fa-chevron-right"></i>
+    </a>
+  </div>
+  </section>
+  <!-- end alumin message -->
+  <section class="name_map">
+   <div class="map-frame"><iframe width="100%" height="500px" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?q=NABAPRAVAT%20ACADEMY%20FOR%20MANAGEMENT%20EDUCATION&t=&z=13&ie=UTF8&iwloc=&output=embed"></iframe>
+  </div>
+  </section>
+  {% include 'alluser_template/footer.html' %}
+{% endblock body %}
+
+  
+  

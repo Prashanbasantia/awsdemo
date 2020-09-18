@@ -1,0 +1,55 @@
+{% extends 'alluser_template/base.html' %}
+{% load static %}
+{% block title %}
+Settings
+{% endblock title %}
+{% block student_profileactive %}active{% endblock student_profileactive %}
+
+{% block body%}
+    <div class="container mt-5">
+      <div class="row">
+        <div class="col-sm-3"></div>
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+
+           
+            <h4 class="modal-title text-center">OTP Confirmation</h4>
+            <p><small>OTP has been sent to your Email <strong>{{email}} </strong>.</small></p>
+          {% url 'student_profile_save_change' as student_profile_save_change %}
+
+        <form id="form1" runat="server" action="{{student_profile_save_change}}" method="POST">
+          {% csrf_token %}
+            <div class="form-group">
+                <label>Enter OTP</label>
+            <input class="form-control" type='number'  name="re_otp" required>
+            </div>
+          
+          <input type="hidden" value={{email}} name="otp_email">
+          <input type="hidden" value={{phone}} name="otp_phone">
+          <input type="hidden" value={{address}} name="otp_address">
+          <input type="hidden" value={{password}} name="otp_password">
+
+          
+            <button type="submit" class="btn btn-primary btn-sm" name="submit">Submit OTP</button><br><br>
+            <code><strong>Note:</strong>If you change the password You will be loged out Automatically</code><br>
+         
+        
+
+        </form>
+        
+      </div>
+    </div>
+        
+      </div>
+      <div class="col-sm-3"></div>
+        
+       
+        
+      </div>
+    </div>
+  
+
+  
+
+{% endblock body %}

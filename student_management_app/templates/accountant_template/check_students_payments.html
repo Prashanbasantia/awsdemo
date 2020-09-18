@@ -1,0 +1,198 @@
+{% extends 'accountant_template/base_template.html' %}
+{% block page_title %}
+Check All  Students Payments
+{% endblock page_title %}
+{% block main_content %}
+    <!-- Main content -->
+    <section class="content">
+      <div class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-6">
+              <h1 class="m-0 text-dark">
+                  Veiw All Student Payments
+              </h1>
+            </div>
+            <div class="col-sm-6">
+              <a href="{% url 'accountant_home' %}" class="btn btn-outline-primary float-right">Home</a>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+      <div class="container-fluid">
+       
+        <div class="row">
+          
+          <div class="col-12">
+            <!-- first card start -->
+            <div class="form-group">
+              {% if messages %}
+                {% for message in messages %}
+                {% if message.tags == 'error' %}
+                <div class="alert alert-danger" style="margin-top:10px">{{ message }}</div>
+                {% endif %}
+                {% if message.tags == 'success' %}
+                <div class="alert alert-success" style="margin-top:10px">{{ message }}</div>
+                {% endif %}
+                {% endfor %}
+              {% endif %}
+            </div>
+          
+            <!-- second card start -->
+            <div class="card">
+              <div class="card-header">
+                <span class="card-title"> 
+                  {% if butt_on == "True" %}  
+                  <a href="{% url 'check_students_payments' %}" class="btn btn-success" id = "view_ugs_btn">View All UG Students Payments</a>
+                  {% else %}
+                  <h5 id="ugs_header">All UG Students Payments Details </h5>
+                  {%  endif %}
+                </span>
+                <form class="form-inline float-right card-tools" action="{% url 'check_students_payments' %}" method="POST">
+                  
+                  {% csrf_token %}
+                  <label for="branch" class="mr-sm-2">Branch</label>
+                  <select name="ug_branch" class="form-control mb-2 mr-sm-2" id="branch">
+                    {% for b in branch_ug %}
+                    <option value="{{b.id}}">{{b.course_name}}</option>
+                    {% endfor %}
+                  </select>
+                  <label for="sess_year" class="mr-sm-2">Session Year</label>
+                  <select name="ug_sess_year" class="form-control mb-2 mr-sm-2" id="sess_year">
+                    {% for sy in session_year_ug %}
+                    <option value="{{sy.id}}">{{ sy.session_start_year}} - {{sy.session_end_year}}</option>
+                    {% endfor %}
+                  </select>
+                  <button type="submit" id ="ug_apply" class="btn btn-outline-primary mb-2">Apply</button>
+                </form>
+              </div>
+              
+              <div class="card-body table-responsive">
+                <table  id="exampleac1" class="table table-hover text-nowrap">
+                  <thead>
+                    <tr>
+                      <th>Profile Pic</th>
+                      <th>Name</th>
+                      <th>Roll NO</th>
+                      <th>Branch</th>
+                      <th>Session Year</th>
+                      <th>Payments</th>
+                      
+                    </tr>
+                  </thead>
+                  <tbody>
+                  {% for student in students %}
+                    <tr>
+                      <td>
+                        <!-- <img src="{{ student.admin.profile_photo }}" class="img-circle" style="width:50px;height:50px;"/> -->
+                        {% if student.admin.profile_photo == '' %}
+                              <span class="text-uppercase rounded-circle" style="font-size: 18px;
+                              font-weight: bold;
+                              border: 2px solid rgb(76, 76, 163);
+                              padding: 5px;
+                              text-align: center;
+                              background-color:#ff00b1;
+                              color: white;">
+                              {{student.admin.first_name.0}}{{student.admin.last_name.0}}
+                              </span>
+                              &nbsp;&nbsp;
+                            {% else %}
+                            <img src="{{student.admin.profile_photo}}" class="rounded-circle border border-danger" width="40px" height="40px">
+                            {% endif %}
+                      </td>
+                      <td><a href="/student_payment_details/{{student.admin.id }}" class="nav-links">{{ student.admin.first_name }} {{ student.admin.last_name }}</a></td>
+                      <td>{{ student.admin.username }}</td>
+                      <td>{{ student.course_id.course_name }}</td>
+                      <td>{{ student.session_year_id.session_start_year }} TO {{ student.session_year_id.session_end_year }}</td>
+                      <td>{{ student.payments }}</td>
+                    </tr>
+                  {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+              
+            </div>
+            <!-- /.card -->
+            
+            <div class="card mt-4">
+              <div class="card-header">
+                <span class="card-title"> 
+                  {% if butt_on2 == "True" %}  
+                  <a href="{% url 'check_students_payments' %}" class="btn btn-success" id = "view_ugs_btn">View All PG Students Payments</a>
+                  {% else %}
+                  <h5 id="ugs_header">All PG Students Payments Details </h5>
+                  {%  endif %}
+                </span>
+                <form class="form-inline float-right card-tools" action="{% url 'check_students_payments' %}" method="POST">
+                  
+                  {% csrf_token %}
+                  <label for="branch" class="mr-sm-2">Branch</label>
+                  <select name="pg_branch" class="form-control mb-2 mr-sm-2" id="branch">
+                    {% for b in branch_pg %}
+                    <option value="{{b.id}}">{{b.course_name}}</option>
+                    {% endfor %}
+                  </select>
+                  <label for="sess_year" class="mr-sm-2">Session Year</label>
+                  <select name="pg_sess_year" class="form-control mb-2 mr-sm-2" id="sess_year">
+                    {% for sy in session_year_pg %}
+                    <option value="{{sy.id}}">{{ sy.session_start_year}} - {{sy.session_end_year}}</option>
+                    {% endfor %}
+                  </select>
+                  <button type="submit" id ="ug_apply" class="btn btn-outline-primary mb-2">Apply</button>
+                </form>
+              </div>
+              
+              <div class="card-body table-responsive">
+                <table id="exampleac2" class="table table-hover text-nowrap">
+                  <thead>
+                    <tr>
+                      <th>Profile Pic</th>
+                      <th>Name</th>
+                      <th>Roll NO</th>
+                      <th>Branch</th>
+                      <th>Session Year</th>
+                      <th>Payments</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  {% for student in students_pg %}
+                    <tr>
+                      <td>
+                        <!-- <img src="{{ student.admin.profile_photo }}" class="img-circle" style="width:50px;height:50px;"/> -->
+                        {% if student.admin.profile_photo == '' %}
+                              <span class="text-uppercase rounded-circle" style="font-size: 18px;
+                              font-weight: bold;
+                              border: 2px solid rgb(76, 76, 163);
+                              padding: 5px;
+                              text-align: center;
+                              background-image: linear-gradient(44deg, #ff00b1, #1695d2);color: white;">
+                              {{student.admin.first_name.0}}{{student.admin.last_name.0}}
+                              </span>
+                              &nbsp;&nbsp;
+                            {% else %}
+                            <img src="{{student.admin.profile_photo}}" class="rounded-circle border border-danger" width="40px" height="40px">
+                            {% endif %}
+                      </td>
+                      <td><a href="/student_payment_details/{{student.admin.id }}" class="nav-links">{{ student.admin.first_name }} {{ student.admin.last_name }}</a></td>
+                      <td>{{ student.admin.username }}</td>
+                      <td>{{ student.course_id.course_name }}</td>
+                      <td>{{ student.session_year_id.session_start_year }} TO {{ student.session_year_id.session_end_year }}</td>
+                      <td>{{ student.payments }}</td>
+                    </tr>
+                  {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+              
+            </div>
+            </div>
+          </div>
+      </div>
+    </section>
+    <!-- /.content -->
+{% endblock main_content %}
+
+{% block custom_js%}
+
+{% endblock %}

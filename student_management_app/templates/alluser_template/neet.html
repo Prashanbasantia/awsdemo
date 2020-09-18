@@ -1,0 +1,559 @@
+
+
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>NABAPRAVAT | Student Registration</title>
+     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+        
+<style type="text/css">
+/*custom font*/
+@import url(https://fonts.googleapis.com/css?family=Montserrat);
+
+/*basic reset*/
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    height: 100%;
+    background: #6441A5; /* fallback for old browsers */
+    background: -webkit-linear-gradient(to left, #6441A5, #2a0845); /* Chrome 10-25, Safari 5.1-6 */
+}
+
+body {
+    font-family: montserrat, arial, verdana;
+    background: transparent;
+}
+
+/*form styles*/
+#msform {
+    text-align: center;
+    position: relative;
+    margin-top: 30px;
+}
+
+#msform fieldset {
+    background: white;
+    border: 0 none;
+    border-radius: 0px;
+    box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
+    padding: 20px 30px;
+    box-sizing: border-box;
+    width: 70%;
+    margin: 0 15%;
+
+    /*stacking fieldsets above each other*/
+    position: relative;
+}
+@media only screen and (max-width: 600px) {
+ #msform fieldset {
+    background: white;
+    border: 0 none;
+    border-radius: 0px;
+    box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
+    padding: 20px 30px;
+    box-sizing: border-box;
+    width: 90%;
+    margin: 0 5%;
+
+    /*stacking fieldsets above each other*/
+    position: relative;
+}
+}
+
+/*Hide all except first fieldset*/
+#msform fieldset:not(:first-of-type) {
+    display: none;
+}
+
+/*inputs*/
+#msform input, #msform textarea, #msform select {
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 0px;
+    margin-bottom: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    font-family: montserrat;
+    color: #2C3E50;
+    font-size: 13px;
+}
+
+
+#msform input:focus, #msform textarea:focus, #msform select:focus {
+    -moz-box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+    border: 1px solid #ee0979;
+    outline-width: 0;
+    transition: All 0.5s ease-in;
+    -webkit-transition: All 0.5s ease-in;
+    -moz-transition: All 0.5s ease-in;
+    -o-transition: All 0.5s ease-in;
+}
+
+/*buttons*/
+#msform .action-button {
+    width: 100px;
+    background: #ee0979;
+    font-weight: bold;
+    color: white;
+    border: 0 none;
+    border-radius: 25px;
+    cursor: pointer;
+    padding: 10px 5px;
+    margin: 10px 5px;
+}
+
+#msform .action-button:hover, #msform .action-button:focus {
+    box-shadow: 0 0 0 2px white, 0 0 0 3px #ee0979;
+}
+
+#msform .action-button-previous {
+    width: 100px;
+    background: #C5C5F1;
+    font-weight: bold;
+    color: white;
+    border: 0 none;
+    border-radius: 25px;
+    cursor: pointer;
+    padding: 10px 5px;
+    margin: 10px 5px;
+}
+
+#msform .action-button-previous:hover, #msform .action-button-previous:focus {
+    box-shadow: 0 0 0 2px white, 0 0 0 3px #C5C5F1;
+}
+
+/*headings*/
+.fs-title {
+    font-size: 18px;
+    text-transform: uppercase;
+    color: #2C3E50;
+    margin-bottom: 10px;
+    letter-spacing: 2px;
+    font-weight: bold;
+}
+
+.fs-subtitle {
+    font-weight: normal;
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+/*progressbar*/
+#progressbar {
+    margin-bottom: 30px;
+    overflow: hidden;
+    /*CSS counters to number the steps*/
+    counter-reset: step;
+}
+
+#progressbar li {
+    list-style-type: none;
+    color: white;
+    text-transform: uppercase;
+    font-size: 9px;
+    width: 33.33%;
+    float: left;
+    position: relative;
+    letter-spacing: 1px;
+}
+
+#progressbar li:before {
+    content: counter(step);
+    counter-increment: step;
+    width: 24px;
+    height: 24px;
+    line-height: 26px;
+    display: block;
+    font-size: 12px;
+    color: #333;
+    background: white;
+    border-radius: 25px;
+    margin: 0 auto 10px auto;
+}
+
+/*progressbar connectors*/
+#progressbar li:after {
+    content: '';
+    width: 100%;
+    height: 2px;
+    background: white;
+    position: absolute;
+    left: -50%;
+    top: 9px;
+    z-index: -1; /*put it behind the numbers*/
+}
+
+#progressbar li:first-child:after {
+    /*connector not needed before the first step*/
+    content: none;
+}
+
+/*marking active/completed steps green*/
+/*The number of the step and the connector before it = green*/
+#progressbar li.active:before, #progressbar li.active:after {
+    background: #ee0979;
+    color: white;
+}
+
+
+/* Not relevant to this form */
+.dme_link {
+    margin-top: 30px;
+    text-align: center;
+}
+.dme_link a {
+    background: #FFF;
+    font-weight: bold;
+    color: #ee0979;
+    border: 0 none;
+    border-radius: 25px;
+    cursor: pointer;
+    padding: 5px 25px;
+    font-size: 12px;
+}
+
+.dme_link a:hover, .dme_link a:focus {
+    background: #C5C5F1;
+    text-decoration: none;
+}
+
+
+</style>
+</head>
+
+<body>
+
+  <!-- MultiStep Form -->
+  
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+        <div style="margin: 20px;" >
+            <a href="{% url 'home' %}" style="color:white; text-decoration:none;">Back to Home Page</a>
+        </div>
+        <div class="form-group">
+            {% if messages %}
+              {% for message in messages %}
+              {% if message.tags == 'error' %}
+              <div class="alert alert-danger" style="margin-top:10px">{{ message }}</div>
+              {% endif %}
+              {% if message.tags == 'success' %}
+              <div class="alert alert-success" style="margin-top:10px">{{ message }}</div>
+              {% endif %}
+              {% endfor %}
+            {% endif %}
+          </div>
+        <form id="msform" action="{% url 'neet_apply_save' %}" method="post">
+         {% csrf_token %}
+        <div class="text-center ">
+				<img src="{% static 'dist/img/logo.jpg' %}" alt="LOGO" height="100px;" width="100px;" class="center">
+			<h3 style="color:white;">Student Registration</h3><br/>
+			</div>
+            <!-- progressbar -->
+            <ul id="progressbar">
+                <li class="active">Personal Details</li>
+                <li>Contact Details</li>
+                <li>QUALIFICATION DETAILS</li>
+            </ul>
+            <!-- fieldsets -->
+            <fieldset>
+                <h2 class="fs-title">Personal Details</h2>
+              
+                 
+                 <select id="department" name="department" required>
+                        <option>Choose Course to be applied for</option>
+                        {% for c in course%}
+                        <option value="{{c.course_name}}">{{c.course_name}}({{c.course_for}} Course)</option>
+                        {% endfor %}
+					    
+					</select>
+					
+					
+               
+                <input  type="text" placeholder="Full Name of candidate" name="full_name" required>
+                 <input  type="text" placeholder="Father name of candidate" name="father_name" required>
+                  <input  type="text" placeholder="Mother's name" name="mother_name" required>
+                 <input  type="date" placeholder="Date of birth" name="dob" required>
+                 
+                 <select name="gender" required="required">
+                 
+   					<option>Choose gender</option>
+                     <option value="Male" >Male</option>
+                     <option value="Female">Female</option>
+                    
+                 </select>
+                 <select name="cast_category" required>
+   					<option>Choose Category</option>
+                     <option value="Genral" >General</option>
+                     <option value="OBC">OBC</option>
+                     <option value="SC">SC</option>
+                     <option value="ST">ST</option>
+
+                 </select> 
+                <input type="number" name="aaddharno" id="adharno" placeholder="Adhar Card Number" maxlength="14" required/>
+                 <input type="number" name="mobile" placeholder="Contact Number" maxlength="10" required/>
+                 <input type="email" name="email" id="email" placeholder="Email Id" autocomplete="off" />
+        
+               
+                <input type="button" name="next" class="next action-button" value="Next"/>
+            </fieldset>
+<!--            	======================================================================== -->
+            <fieldset>
+                <h2 class="fs-title">Contact Details</h2>
+                
+                <p align="left"><b>Present Address</b></p>
+                      <input  type="text" placeholder="AT" name="at_pre" id="at_pre" required>
+                   <input  type="text" placeholder="PO" name="po_pre" id="po_pre" required>
+                  <input  type="text" placeholder="GP" name="gp_pre" id="gp_pre" required>
+      			 <input  type="text" placeholder="PS" name="ps_pre" id="ps_pre" required>
+                   <input  type="text" placeholder="DIST" name="dist_pre" id="dist_pre" required>
+                  <input  type="text" placeholder="STATE" name="state_pre" id="state_pre" required>
+			       <input  type="number" placeholder="PIN" name="pin_pre" id="pin_pre" required>
+			       
+			      
+			      <p align="left"><b>Permanent Address</b></p>
+			      
+			      <input type="checkbox" id="filladdress" name="filladdress" style="width:20px; float:left;">
+			      <label align="left" style="float: left;">Same as Present</label>
+			      
+			      
+			      
+			       <input  type="text" placeholder="AT" name="at_per" id="at_par" required>
+                   <input  type="text" placeholder="PO" name="po_per" id="po_par" required>
+                  <input  type="text" placeholder="GP" name="gp_per" id="gp_par" required>
+       				<input  type="text" placeholder="PS" name="ps_per" id="ps_par" required>
+                   <input  type="text" placeholder="DIST" name="dist_per" id="dist_par" required>
+                  <input  type="text" placeholder="STATE" name="state_per" id="state_par" required>
+       				<input  type="number" placeholder="PIN" name="pin_per" id="pin_par" required>
+       
+                <input type="button" name="previous" class="previous action-button-previous" value="Previous"/>
+                <input type="button" name="next" class="next action-button" value="Next"/>
+            </fieldset>
+            <fieldset>
+                <h2 class="fs-title">QUALIFICATION DETAILS </h2>
+                  <table border="1" align="center">
+					  <tr>
+						<td><small>Examination</small></td>
+						<td><small>Appear/Passed</small></td>
+						<td><small>Year</small></td>
+						<td><small>School/College Name</small></td>
+						<td><small>University/Board</small></td>
+						<td><small>Full Mark</small></td>
+						<td><small>Secured Mark</small></td>
+						<td><small>Secured %</small></td>
+					  </tr>
+					   <tr>
+						<td>10th</td>
+						<td>  
+							<select name="tenth_passed" required>
+                                    <option value="passed" selected>Passed</option>
+                             </select></td>
+							<td>
+							<input type="number" name="tenth_year" required>
+							</td>
+						     <td>
+						     	<input type="text"name="tenth_school"required></td>
+						<td>
+							<select name="tenth_board" required>
+                                    <option >Select</option>
+                                    <option value="CBSC" >CBSC</option>
+                                    <option value="ICSE">ICSE</option>
+                                    <option value="STATE BOARD board" >state board</option>
+                            </select>
+						</td>
+						 <td><input type="number"name="tenth_fullmark" required></td>
+					    <td><input type="number"name="tenth_securedmark" required></td>
+					    <td><input type="number"name="tenth_percent" required></td>
+					  </tr>
+					  <!-- ------------------------------------------ -->
+					  <tr>
+						<td>12th</td>
+						<td> <select name="twelth_passed" id="twelth_passed" required>
+                                    <option value="appearing">Appearing</option>
+                                    <option value="passed">Passed</option>
+                              </select>
+                         </td>
+					<td><input type="number" name="twelth_year" id="twelth_year" ></td>
+				     <td><input type="text" name="twelth_school" id="twelth_school" ></td>
+				    <td>
+                           
+                                <select name="twelth_board" id="twelth_board" >
+                                    <option>board</option>
+                                    <option value="CBSC">CBSC</option>
+                                    <option value="ICSE">ICSE</option>
+                                    <option value="STATE BOARD" >STATE BOARD</option>
+                                 </select>
+						 </td>
+					    <td><input type="number"name="twelth_fullmark" id="twelth_fullmark"></td>
+					    <td><input type="number"name="twelth_securedmark" id="twelth_securedmark"></td>
+					    <td><input type="number"name="twelth_percent" id="twelth_percent"></td>
+					</tr>
+					
+					<!-- ------------------------------------------ -->
+					  <tr>
+						<td>+3</td>
+						<td> <select name="grad_passed" required>
+                                 	<option  >select</option>
+                          			<option value="no">No</option>
+                          			<option value="appear" >Appear</option>
+                                    <option value="passed">Passed</option>
+                         	</select>
+                        </td>
+						 <td><input type="text"name="grad_year" id="grad_year" ></td>
+					     <td><input type="text"name="grad_college" ></td>
+					    <td><input type="text"name="grad_univ" >
+					       </td>
+					    <td><input type="number"name="grad_fullmark" id="grad_fullmark" ></td>
+					    <td><input type="number"name="grad_securedmark" id="grad_securedmark" ></td>
+					    <td><input type="number"name="grad_percent"></td>
+					   
+					  </tr>
+ 					 </table>
+				                
+				       <div>
+				       <br>
+                        <h5 style="background-color:ghostwhite;">DECLARATION BY APPLICANT</h5><br>
+                         <P align="right;"><i> I hereby solemnly declare that i have read the prospectus thoroghly and thereby understood the
+                        conditions of eligibility for the program for which i seek admission.i fulfill the minimum eligibility criteria
+                        and i have provided necessary information in this regard.in the event of any information this regard.In  the event of any
+                        information being found incorrect or misleading,my candidature shall be liable for cancellation by the university at any time and shall not be entitled to refund of any fees paid by me.</i></P><br>
+                       
+                        <small><input type="checkbox" id="" name="T&C" style="width:20px;margin-bottom:0px;" required><label> I accept the T&C</label></small>
+						</div>          
+                
+                
+                      <input type="button" name="previous" class="previous action-button-previous" value="Previous"/>
+                <input type="submit" name="submit" class="submit action-button" value="Submit"/>
+                <button type="submit"  value="GO TO SUBMIT" class="btn btn-primary"></button><br/>
+                <small style="background-color: yellow;"><code>All fields are mandatory to fill otherwise form will not be submitted </code></small>
+            </fieldset>
+        </form>
+        <!-- link to designify.me code snippets -->
+       
+        <!-- /.link to designify.me code snippets -->
+    </div>
+</div>
+<!-- /.MultiStep Form -->
+
+		
+		
+ <script type="text/javascript">
+//jQuery time
+var current_fs, next_fs, previous_fs; //fieldsets
+var left, opacity, scale; //fieldset properties which we will animate
+var animating; //flag to prevent quick multi-click glitches
+
+$(".next").click(function(){
+	if(animating) return false;
+	animating = true;
+	
+	current_fs = $(this).parent();
+	next_fs = $(this).parent().next();
+	
+	//activate next step on progressbar using the index of next_fs
+	$("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+	
+	//show the next fieldset
+	next_fs.show(); 
+	//hide the current fieldset with style
+	current_fs.animate({opacity: 0}, {
+		step: function(now, mx) {
+			//as the opacity of current_fs reduces to 0 - stored in "now"
+			//1. scale current_fs down to 80%
+			scale = 1 - (1 - now) * 0.2;
+			//2. bring next_fs from the right(50%)
+			left = (now * 50)+"%";
+			//3. increase opacity of next_fs to 1 as it moves in
+			opacity = 1 - now;
+			current_fs.css({
+       'transform': 'scale('+scale+')',
+       'position': 'absolute'
+     });
+			next_fs.css({'left': left, 'opacity': opacity});
+		}, 
+		duration: 800, 
+		complete: function(){
+			current_fs.hide();
+			animating = false;
+		}, 
+		//this comes from the custom easing plugin
+		easing: 'easeInOutBack'
+	});
+});
+
+$(".previous").click(function(){
+	if(animating) return false;
+	animating = true;
+	
+	current_fs = $(this).parent();
+	previous_fs = $(this).parent().prev();
+	
+	//de-activate current step on progressbar
+	$("#progressbar li").eq($("fieldset").index(current_fs)).removeClass("active");
+	
+	//show the previous fieldset
+	previous_fs.show(); 
+	//hide the current fieldset with style
+	current_fs.animate({opacity: 0}, {
+		step: function(now, mx) {
+			//as the opacity of current_fs reduces to 0 - stored in "now"
+			//1. scale previous_fs from 80% to 100%
+			scale = 0.8 + (1 - now) * 0.2;
+			//2. take current_fs to the right(50%) - from 0%
+			left = ((1-now) * 50)+"%";
+			//3. increase opacity of previous_fs to 1 as it moves in
+			opacity = 1 - now;
+			current_fs.css({'left': left});
+			previous_fs.css({'transform': 'scale('+scale+')', 'opacity': opacity});
+		}, 
+		duration: 800, 
+		complete: function(){
+			current_fs.hide();
+			animating = false;
+		}, 
+		//this comes from the custom easing plugin
+		easing: 'easeInOutBack'
+	});
+});
+
+// $(".submit").click(function(){
+// 	return false;
+// })
+ </script>
+ <script type="text/javascript">
+            function filladdressAMY(){
+            	  if ($("#filladdress").is(":checked")) {
+            	    $("#at_par").val($("#at_pre").val());
+                    $("#po_par").val($("#po_pre").val());
+                    $("#gp_par").val($("#gp_pre").val()); 
+                    $("#ps_par").val($("#ps_pre").val()); 
+                    $("#dist_par").val($("#dist_pre").val()); 
+                    $("#state_par").val($("#state_pre").val()); 
+                    $("#pin_par").val($("#pin_pre").val()); 
+            	  } else {
+            		  $("#at_par").val('');
+                      $("#po_par").val('');
+                      $("#gp_par").val('');
+                      $("#ps_par").val('');
+                      $("#dist_par").val('');
+                      $("#state_par").val('');
+                      $("#pin_par").val('');
+            	  }
+            	}
+				$('#filladdress').click(function(){
+            		filladdressAMY();
+            	});
+            </script>
+          
+</body>
+</html>

@@ -1,0 +1,90 @@
+{% extends 'accountant_template/base_template.html' %}
+{% block page_title %}
+Payment History 
+{% endblock page_title %}
+{% block main_content %}
+    <!-- Main content -->
+    <section class="content">
+      <div class="container">
+        <div class="row pb-3">
+            <div class="col-sm-12">
+                <form class="form-inline" action="{% url 'payments_history' %}" method="POST">
+                    {% csrf_token %}
+                    <div class="form-group mx-sm-3 mb-2">
+                        <label for="fromdate">From &nbsp;&nbsp; </label>
+                        <input type="date" name="from_date" class="form-control" id="fromdate" placeholder="date">
+                      </div>
+                    <div class="form-group mx-sm-3 mb-2">
+                      <label for="todate" >TO&nbsp; &nbsp;</label>
+                      <input type="date" name="to_date" class="form-control" id="todate" placeholder="date">
+                    </div>
+                    <button type="submit" class="btn btn-primary mb-2">Apply</button>
+                  </form>
+                <div class="form-group">
+                    {% if messages %}
+                      {% for message in messages %}
+                      {% if message.tags == 'error' %}
+                      <div class="alert alert-danger" style="margin-top:10px">{{ message }}</div>
+                      {% endif %}
+                      {% if message.tags == 'success' %}
+                      <div class="alert alert-success" style="margin-top:10px">{{ message }}</div>
+                      {% endif %}
+                      {% endfor %}
+                    {% endif %}
+                  </div> 
+            </div>
+            </div>
+          
+        <div class="row">
+            <div class="col-md-12">
+            
+                {% for tran in transac %}
+
+                <div class="card card-primary">
+                    
+                      <h5 class="card-title"><span class="float-left pl-2 pt-2"><strong>Roll No: </strong> {{tran.roll_number}}</span>  <span class="float-right pr-2 pt-2"><strong>Date: </strong>{{tran.created_at}}</span></h5>
+                    <hr>
+                    <!-- /.card-header -->
+                    <!-- form start -->
+                       <div class="card-body" style="padding: 0px 10px;">
+                           <div class="row">
+                               <div class="col-sm-6">
+                                   <ul>
+                                    <li>
+                                        <strong>Ammount : </strong>&#8377; {{tran.ammount}}
+                                        
+                                     </li>
+                                     <li>
+                                         <strong> Receipt Id : </strong>  {{tran.receipt_id}}
+                                     </li>
+                                   </ul>
+                               </div>
+                               <div class="col-sm-6">
+                                <ul>
+                                    <li>
+                                        <strong>Name : </strong> <span class="text-capitalize">{{tran.name}}</span> 
+        
+                                    </li>
+                                    
+                                    <li>
+                                       <strong>Fee Type : </strong>  {{tran.transaction_type}}
+                                    </li>
+                                   
+                                </ul>
+                               </div>
+                           </div>
+                        
+                        
+                      </div>
+                      <!-- /.card-body -->
+      
+                  </div>
+{% endfor %}
+          </div>
+          </div>
+
+      </div>
+    </section>
+    
+{% endblock main_content %}
+

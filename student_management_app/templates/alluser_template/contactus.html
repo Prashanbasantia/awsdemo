@@ -1,0 +1,70 @@
+{% extends "alluser_template/base.html" %}
+{% load static %}
+
+{% block title %}
+Notice
+{% endblock title %}
+{% block noticeactive %}active{% endblock noticeactive %}
+{% block body %}
+<div class="container">
+  <div class="row contact_container">
+    <div class="col-md-6 contact_form">
+
+      <form method="POST" action="">
+        <h3>Contact Form</h3>
+        <div class="form-group">
+          <label>
+            Name
+          </label>
+          <input type="text" name="name" class="form-control">
+        </div>
+        <div class="form-group">
+          <label>
+            Email
+          </label>
+          <input type="email" name="email" class="form-control">
+        </div>
+        <div class="form-group">
+          <label>
+            Phone
+          </label>
+          <input type="text" name="phone" class="form-control">
+        </div>
+        <div class="form-group">
+          <label>
+            Message
+          </label>
+          <textarea name="message"  rows="5" class="form-control"></textarea>
+        </div>
+        <button class="btn btn-success btn-block" type="submit" style="width:50%;margin:0 auto;">Submit</button>
+      </form>
+    </div>      
+    <div class="col-md-6 contact_content">
+        <div class="row" >
+          <div class="col-sm-12">
+            <ul class="address">
+              <li><i class="fas fa-map-marker-alt"></i><span>Sunakhandi(Educational Area), <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                close to Kashipur,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                Salipur,Odisha, pin-754202</span></li>
+              <li><i class="fas fa-envelope"></i><span>contact@nabapravat.com</span></li>
+              <li><i class="fas fa-phone-alt"></i><span>9861938110, 8118063088</span></li>
+              </ul>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <iframe width="100%" height="300px" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?q=NABAPRAVAT%20ACADEMY%20FOR%20MANAGEMENT%20EDUCATION&t=&z=13&ie=UTF8&iwloc=&output=embed">
+            </iframe>
+          </div>
+        </div>
+      
+    </div>
+
+    </div>
+  </div>
+</div>
+{% include 'alluser_template/footer.html' %}
+
+{% endblock body %}
+  
+  

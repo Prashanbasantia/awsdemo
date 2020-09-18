@@ -1,0 +1,149 @@
+{% extends 'alluser_template/base.html' %}
+{% load static %}
+{% block title %}
+Payments History 
+{% endblock title %}
+{% block student_profileactive %}active{% endblock student_profileactive %}
+
+{% block body%}
+
+      <div class="container mt-4">
+        
+        <div class="row">
+            <div class="col-sm -6">
+                <h4>Payments History</h4>
+                
+                 
+                <p><strong>Total Paid</strong> : &#8377; {{ tot }}</p>
+                <a href="#"  data-toggle="modal" data-target="#download_transaction">Download</a>
+                
+               
+
+            </div>
+            <div class="col-sm-6">
+                <form  class="form-inline" action="{% url 'student_payment_history' %}" method="get">
+                    
+                    <label for="email"> <i class="fas fa-filter text-primary"></i>&nbsp; Filter &nbsp;</label>
+                       <select class="form-control" name="filter" id="filter">
+                        <option value = "All">All Payments</option>
+                        <option value="Course Fee">Course Fee</option>
+                        <option value="Hostel Fee">Hostel Fee</option>
+                        <option value="Adminssion Fee">Adminssion Fee</option>
+                        <option value="Form FillUp Fee">Form FillUp  Fee</option>
+                    </select>
+                     
+                     <input type="submit"  class ="form-control ml-2" value="apply" name="apply">
+                </form>  
+            </div>
+          <div class="form-group col-md-12">
+              
+            {% for tran in transac %}
+                <!--   -->
+            <div class="card card-primary mt-2">
+                
+                <!-- form start -->
+                   <div class="card-body" style="padding: 5px 10px;">
+                       <div class="row">
+                           <div class="col-sm-6">
+                               <ul>
+                                <li>
+                                    <strong>Ammount : </strong>&#8377; {{tran.ammount}}
+                                    
+                                 </li>
+                                 <li>
+                                    <strong>Fee Type : </strong>  {{tran.transaction_type}}    
+                                 </li>
+                               </ul>
+                           </div>
+                           <div class="col-sm-6">
+                            <ul>
+                                <li>
+                                    <strong>Date : </strong> <span class="text-capitalize">{{tran.created_at}}</span> 
+    
+                                </li>
+                                
+                                <li>
+                                   
+                                   <strong> Receipt Id : </strong>  {{tran.receipt_id}}
+                                </li>
+                               
+                            </ul>
+                           </div>
+                       </div>
+                    
+                    
+                  </div>
+                  <!-- /.card-body -->
+                </div>
+                {% endfor %}
+
+          </div>
+         </div>
+        </div>
+      
+
+        
+  
+    
+            {% include 'alluser_template/footer.html' %}
+        
+        
+    <div class="modal fade" id="download_transaction" tabindex="-1" role="dialog" aria-labelledby="delete_notice" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          
+          <div class="modal-body">
+            <h5 class="text-info">Download Transaction <span class="Float-left"><i class="fas fa-times-circle close" data-dismiss="modal" style="color:red;"></i></span></h5> 
+            <div class="card card-primary">
+              
+              <!-- /.card-header -->
+              <!-- form start -->
+                <div class="card-body">
+                  <form method="GET" action="{% url 'download_transaction' %}">
+                    <!-- {% csrf_token %} -->
+                  <div class="form-check">
+                    <label class="form-check-label">
+                      <input type="radio" value ="all" class="form-check-input" name="transaction_select" onclick="show_1();">All Transaction
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <label class="form-check-label">
+                      <input type="radio" value ="custome" class="form-check-input" id ="custome_transaction" name="transaction_select" onclick="show_2();">Custome Transaction
+                    </label>
+                  </div>
+                  <div id="show_date" style="display: none; border:1px solid #0075ff;border-radius:10px; width:auto; margin-top:10px; padding:5px;">
+                  <div class="form-group mx-sm-3 mb-2">
+                    <label for="fromdate">From &nbsp;&nbsp; </label>
+                    <input type="date" name="from_date" class="form-control form-control-sm" id="fromdate" placeholder="date">
+                  </div>
+                  <div class="form-group mx-sm-3 mb-2">
+                  <label for="todate" >TO&nbsp; &nbsp;</label>
+                  <input type="date" name="to_date" class="form-control form-control-sm" id="todate" placeholder="date">
+                </div>
+                </div>
+                <button type="submit" class="btn btn-outline-success mx-5 my-4 btn-sm ">Download</button>
+              </form>
+
+                </div>
+
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  
+  {% endblock body %}
+  {% block custom_js %}
+  <script>
+    function show_1(){
+      document.getElementById('show_date').style.display ='none';
+    }
+    function show_2(){
+      document.getElementById('show_date').style.display = 'block';
+    }
+
+  </script>
+  {% endblock custom_js%}
+
+
+

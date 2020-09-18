@@ -1,0 +1,145 @@
+
+
+{% extends 'alluser_template/base.html' %}
+{% load static %}
+{% block title %}
+Settings
+{% endblock title %}
+{% block student_profileactive %}active{% endblock student_profileactive %}
+
+{% block body%}
+      <div class="container mt-4">
+        <div class="row">
+          <div class="col-md-12">
+
+            <div class="card">
+              <div class="card-header py-1">
+                <h5 class="card-title">Change Profile</h5>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-sm-2"></div>
+                  <div class="col-sm-4">
+                    <div class="user-pic">
+                          {% if request.user.profile_photo == '' %}
+                        <div class="text-uppercase rounded-circle" style="width:80px;height:80px;background-color:blueviolet; text-align:center; padding-top:20px; color:white; font-size:30px;">
+                        {{request.user.first_name.0}}{{request.user.last_name.0}}
+                        </div>
+                            &nbsp;&nbsp;
+                          {% else %}
+                          <img src="{{request.user.profile_photo}}" class="rounded-circle border border-danger" width="100px" height="100px">
+                          {% endif %}
+                          <button type="button" class="change_profile btn btn-primary  btn-sm mt-1" data-toggle = "modal" data-target= "#change_profile_Modal" >Change Picture</button>
+                      </div>
+                  </div>
+                  
+                  <div class="col-sm-4">
+                  <div class="user-info">
+                    <table>
+                      <tr>
+                        <td> Name</td>
+                        <td>:</td>
+                        <td> <strong>{{user.first_name}} {{user.last_name}}</strong></td>
+                      </tr>
+                      <tr>
+                        <td> Roll Number</td>
+                        <td>:</td>
+                        <td> <strong>{{user.username}}</strong></td>
+                      </tr>
+                      <tr>
+                        <td> Branch</td>
+                        <td>:</td>
+                        <td> <strong>{{course}}</strong></td>
+                      </tr>
+                      <tr>
+                        <td>Session Year </td>
+                        <td>:</td>
+                        <td> <strong>{{session_year.session_start_year}}-{{session_year.session_end_year}}</strong></td>
+                      </tr>
+                    </table>
+                </div>
+                </div>
+                <div class="col-sm-2"></div>
+         
+              </div>
+            </div>
+            </div>
+          </div>
+
+
+<!-- second card/col -->
+<div class="form-group">
+  {% if messages %}
+    {% for message in messages %}
+    {% if message.tags == 'error' %}
+    <div class="alert alert-danger" style="margin-top:10px">{{ message }}</div>
+    {% endif %}
+    {% if message.tags == 'success' %}
+    <div class="alert alert-success" style="margin-top:10px">{{ message }}</div>
+    {% endif %}
+    {% endfor %}
+  {% endif %}
+</div>
+            <div class="col-md-12  pb-2">
+            <div class="card card-primary mt-2">
+                <div class="card-header py-1">
+                  <h5 class="card-title">Change Details</h5>
+                </div>
+                <!-- /.card-header -->
+                <!-- form start -->
+
+                <form role="form" action="{% url 'student_profile_change' %}" method="post">
+                    {% csrf_token %}
+                  <div class="card-body">
+                    
+                    <div class="form-group">
+                      <label>Change Email</label>
+                      <input type="email" class="form-control" name="email" id="email" value="{{ user.email }}">
+                    </div>
+                    <div class="form-group">
+                        <label>Change Phone</label>
+                        <input type="text" class="form-control" name="phone" id ="phone" value="{{ student.mobile }}">
+                      </div>
+                    
+                     <div class="form-group">
+                      <label>Change Address</label>
+                      <textarea class="form-control" name="address" id="address">{{ student.address }}</textarea>
+                        
+                          
+                    </div>
+                    <hr>
+                    <code class="text-warning bg-dark w-50 px-3 py-1">Fill password Filed !.If Only You want to Change it</code>
+                     <div class="form-group">
+                      <label>Change Password?</label>
+                      <input type="text" class="form-control" name="password" id ="password" placeholder="Enter New Password">
+                    </div>
+                    <div class="row">
+                    <div class="col-sm-3"></div>
+                    <div class="col-sm-3">
+                      <button type="submit" class="btn btn-primary btn-block" data-toggle="modal" data-target="#otp_modal" id="otp_data">Save </button>
+                    </div>
+                    <div class="col-sm-3"></div>
+                  </div>
+                    
+                    
+                     
+  
+                  </div>
+                  <!-- /.card-body -->
+                </form>
+              </div>
+            </div>
+         
+
+
+          </div>
+        </div>
+        
+  
+        <footer class="text-center">
+            {% include 'alluser_template/footer.html' %}
+        </footer>
+{% endblock body %}
+{% block custom_js%}
+
+{% endblock custom_js%}

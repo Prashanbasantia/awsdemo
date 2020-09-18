@@ -1,0 +1,212 @@
+{% extends 'hod_template/base_template.html' %}
+{% block page_title %}
+Add Student
+{% endblock page_title %}
+{% block main_content %}
+    <!-- Main content -->
+    <section class="content"><div class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-6">
+              <h1 class="m-0 text-dark">
+                  Add Student Result
+              </h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+              <a href="{% url 'manage_student' %}" class="btn btn-outline-primary float-right">Manage All Students</a>
+            </div><!-- /.col -->
+          </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+      </div>
+      <div class="container-fluid">
+          <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                    {% if messages %}
+                      {% for message in messages %}
+                      {% if message.tags == 'error' %}
+                      <div class="alert alert-danger" style="margin-top:10px">{{ message }}</div>
+                      {% endif %}
+                      {% if message.tags == 'success' %}
+                      <div class="alert alert-success" style="margin-top:10px">{{ message }}</div>
+                      {% endif %}
+                      {% endfor %}
+                    {% endif %}
+                  </div>
+            <!-- general form elements -->
+            <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title">Add Student Result</h3>
+            <form role="form" action="/save_students_result" method="POST">
+                {% csrf_token %}
+            </div>
+                
+              <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-5">
+                        <div class="form-group">
+                            <label>Enter Roll No</label>
+                            <input type="text" class="form-control" placeholder="Roll Number" id= "roll_number" name="roll_number">
+                          </div>   
+                    </div>
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-5">
+                        <div class="form-group" id ="fetch_data"> 
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-5">
+                            <div class="form-group">
+                                <label>Semester</label>
+                                <select name="semester" class="form-control">
+                                <option value="First">First</option>
+                                <option value="Second">Second</option>
+                                <option value="Third">Third</option>
+                                <option value="Fourth">Fourth</option>
+                                <option value="Fiveth">Fiveth</option>
+                                <option value="Sixth">Sixth</option>
+                                </select>
+                            </div>
+                    </div>
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-5">
+                        <div class="form-group">
+                            <label>Subject Name</label>
+                            <select name="subject_name" class="form-control">
+                                {%for sb in subject %}
+                                <option value="{{sb.subject_name}}">{{sb.subject_name}}({{sb.course_name}})</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-sm-5">
+                        <div class="form-group">
+                            <label>Total Mark</label>
+                            <input type="number" class="form-control" placeholder="Enter Total mark" name="total_mark">
+                        </div>
+                    </div>
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-5">
+                            <div class="form-group">
+                                <label>Secured Mark</label>
+                                <input type="number" class="form-control" placeholder="Enter Secured mark" name="secured_mark">
+                            </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-5">
+                        <div class="form-group">
+                            <label>Total Practical Mark</label>
+                            <input type="number" class="form-control" placeholder="Enter Total mark" name="prac_total_mark">
+                        </div>
+                    </div>
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-5">
+                            <div class="form-group">
+                                <label>Secured Practical Mark</label>
+                                <input type="number" class="form-control" placeholder="Enter Secured mark" name="prac_secured_mark">
+                            </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-sm-5">
+                        <div class="form-group">
+                            <label>Student Pass</label>
+                            <select name="is_pass" class="form-control">
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-5">
+                    <button type="submit" class="btn btn-primary btn-block mt-4">Add Result</button>
+                    </div>
+                </div>
+              </div>
+              <!-- /.card-body -->
+            </form>
+
+
+
+          </div>
+          </div>
+      </div>
+    </section>
+    <!-- /.content -->
+{% endblock main_content %}
+
+{% block custom_js %}
+<script>
+    $(document).ready(function(){
+        $("#roll_number").keyup(function(){
+            var roll_number=$(this).val();
+
+            if(roll_number!=""){
+                $.ajax({
+                    url:"{% url 'check_rollNumber_exist' %}",
+                    type:'POST',
+                    data:{roll_number:roll_number}
+                })
+                .done(function(response){
+                    console.log(response);
+                    if(response=="True"){
+                        $(".roll_number_error").remove();
+                        $("<span class='roll_number_error' style='padding: 5px;color: green;font-weight: bold;'>Roll Number Available</span>").insertAfter("#roll_number");
+                    }
+                    else{
+                        $(".roll_number_error").remove();
+                        $("<span class='roll_number_error' style='padding: 5px;color: red;font-weight: bold;'>Roll Number  Not Available</span>").insertAfter("#roll_number");
+                    }
+                })
+                .fail(function(){
+                    console.log("failed");
+                })
+            }
+            else{
+                $(".roll_number_error").remove();
+            }
+
+        });
+
+    });
+
+    $(document).ready(function(){
+        $("#roll_number").focusout(function(){
+            var roll_number=$("#roll_number").val()
+            
+            $.ajax({
+                url:'{% url "fetch_rollNumber" %}',
+                type:'POST',
+                data:{roll_number:roll_number},
+            })
+            .done(function(response){
+              var json_data=JSON.parse(response);
+              console.log(json_data)
+              var div_data="<div class='text-primary text-capitalize  pt-2  mt-4 text-center border rounded'><p>Name: "+json_data['name']+"</p>";
+                div_data+="</div>";
+                div_data+="<input type = 'hidden' name ='student_id' value='"+json_data['id']+"'>";
+                div_data+="</div>";
+                div_data+="<input type = 'hidden' name = 'student_name' value='"+json_data['name']+"'>";
+
+            div_data+="</div>";
+    
+              $("#fetch_data").html(div_data);
+  
+          })
+            .fail(function(){
+                console.log("failed");
+            })
+       
+  
+    });
+    
+  
+  });
+</script>
+{% endblock custom_js %}

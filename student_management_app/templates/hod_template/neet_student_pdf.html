@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{{neet_student.full_name}}</title>
+        <style type="text/css">
+            body {
+                font-weight: 200;
+                font-size: 14px;
+            }
+            .header {
+                font-size: 20px;
+                font-weight: 100;
+                text-align: center;
+                color: #007cae;
+            }
+            .title {
+                font-size: 22px;
+                font-weight: 100;
+               /* text-align: right;*/
+               padding: 10px 20px 0px 20px;  
+            }
+            .title span {
+                color: #007cae;
+            }
+            .text-dark{color:#000;}
+            .details {
+                padding: 10px 20px 0px 20px;
+                text-align: left !important;
+                /*margin-left: 40%;*/
+            }
+            .hrItem {
+                border: none;
+                height: 1px;
+                /* Set the hr color */
+                color: #333; /* old IE */
+                background-color: #fff; /* Modern Browsers */
+            }
+        </style>
+    </head>
+    <body>
+        <div class='wrapper'>
+            <div class='header'>
+                <p class='title'>Nabapravat Academy For Management Education,Cuttack</p>
+                <p class="text-dark">NEET Applicant<strong> {{neet_student.full_name}}</strong></p>
+            </div>
+        <div>
+          
+        <div class='details'>
+            <h2>Personal Details</h2>
+            <table>
+                <tr>
+                    <td>Full Name</td>
+                    <td>{{neet_student.full_name}}</td>
+                </tr>
+                <tr>
+                    <td>Father Name</td>
+                    <td>{{neet_student.father_name}}</td>
+                </tr>
+                <tr>
+                    <td>Mother Name</td>
+                    <td>{{neet_student.mother_name}}</td>
+                </tr>
+                <tr>
+                    <td>Applied Course</td>
+                    <td>{{neet_student.course}}</td>
+                </tr>
+                <tr>
+                    <td>Date Of Birth</td>
+                    <td>{{neet_student.dob}}</td>
+                </tr>
+                
+                <tr>
+                    <td>Gender</td>
+                    <td>{{neet_student.gender}}</td>
+                </tr>
+                <tr>
+                    <td>Cast Category</td>
+                    <td>{{neet_student.cast_category}}</td>
+                </tr>
+                <tr>
+                    <td>Aaddhar Number</td>
+                    <td>{{neet_student.aaddhar_number}}</td>
+                </tr>
+                <tr>
+                    <td>Mobile Number</td>
+                    <td>{{neet_student.phone_number}}</td>
+                </tr>
+                <tr>
+                    <td>Email</td>
+                    <td>{{neet_student.email}}</td>
+                </tr>
+                
+            </table>
+            
+            <hr class='hrItem' />
+        </div>
+
+        <div class='details'>
+            <h2>Contact Details</h2>
+            <table>
+                <tr><th>Present Address</th></tr>
+                <tr>
+                    <td>AT</td>
+                    <td>{{neet_student.at_pre}}</td>
+                </tr>
+                <tr>
+                    <td>PO</td>
+                    <td>{{neet_student.po_pre}}</td>
+                </tr>
+                <tr>
+                    <td> GP</td>
+                    <td>{{neet_student.gp_pre}}</td>
+                </tr>
+                <tr>
+                    <td> PS</td>
+                    <td>{{neet_student.ps_pre}}</td>
+                </tr>
+                <tr>
+                    <td>DIST</td>
+                    <td>{{neet_student.dist_pre}}</td>
+                </tr>
+                
+                <tr>
+                    <td>STATE</td>
+                    <td>{{neet_student.state_pre}}</td>
+                </tr>
+                <tr>
+                    <td> PIN</td>
+                    <td>{{neet_student.pin_pre}}</td>
+                </tr>
+                
+                
+            </table>
+            <br>
+            
+            <table>
+                <tr><th>Permanent Address</th></tr>
+                <tr>
+                    <td>AT</td>
+                    <td>{{neet_student.at_per}}</td>
+                </tr>
+                <tr>
+                    <td>PO</td>
+                    <td>{{neet_student.po_per}}</td>
+                </tr>
+                <tr>
+                    <td> GP</td>
+                    <td>{{neet_student.gp_per}}</td>
+                </tr>
+                <tr>
+                    <td> PS</td>
+                    <td>{{neet_student.ps_per}}</td>
+                </tr>
+                <tr>
+                    <td>DIST</td>
+                    <td>{{neet_student.dist_per}}</td>
+                </tr>
+                
+                <tr>
+                    <td>STATE</td>
+                    <td>{{neet_student.state_per}}</td>
+                </tr>
+                <tr>
+                    <td> PIN</td>
+                    <td>{{neet_student.pin_per}}</td>
+                </tr>
+                
+                
+            </table>
+            
+            <hr class='hrItem' />
+        </div>
+
+        
+
+        <div class='details'>
+            <h2>Qualification Details</h2>
+            <table>
+                <tr><th>Tenth Deatils</th></tr>
+                <tr>
+                    <td>Tenth Passed</td>
+                    <td>{{neet_student.tenth_passed}}</td>
+                </tr>
+                <tr>
+                    <td>Tenth Year</td>
+                    <td>{{neet_student.tenth_year}}</td>
+                </tr>
+                <tr>
+                    <td>Tenth School</td>
+                    <td>{{neet_student.tenth_school}}</td>
+                </tr>
+                <tr>
+                    <td>Tenth Board</td>
+                    <td>{{neet_student.tenth_board}}</td>
+                </tr>
+                <tr>
+                    <td>Tenth Total Mark</td>
+                    <td>{{neet_student.tenth_fullmark}}</td>
+                </tr>
+                <tr>
+                    <td>Tenth Secured Mark</td>
+                    <td>{{neet_student.tenth_securedmark}}</td>
+                </tr>
+               <tr>
+                    <td>Tenth percentage</td>
+                    <td>{{neet_student.tenth_percent}} %</td>
+                </tr>
+        
+            </table>
+            <table>
+                <tr><th>Twelth Deatils</th></tr>
+                <tr>
+                    <td>Twelth Passed</td>
+                    <td>{{neet_student.twelth_passed}}</td>
+                </tr>
+                <tr>
+                    <td>Twelth Year</td>
+                    <td>{{neet_student.twelth_year}}</td>
+                </tr>
+                <tr>
+                    <td>Twelth Collage</td>
+                    <td>{{neet_student.twelth_school}}</td>
+                </tr>
+                <tr>
+                    <td>Twelth Board</td>
+                    <td>{{neet_student.twelth_board}}</td>
+                </tr>
+                <tr>
+                    <td>Twelth Total Mark</td>
+                    <td>{{neet_student.twelth_fullmark}}</td>
+                </tr>
+                <tr>
+                    <td>Twelth Secured Mark</td>
+                    <td>{{neet_student.twelth_securedmark}}</td>
+                </tr>
+                
+                <tr>
+                    <td>Twelth percentage</td>
+                    <td>{{neet_student.twelth_percent}} %</td>
+                </tr>
+                
+                
+                
+            </table>
+            {% if neet_student.grad_school == None %}
+             <h3>{{neet_student.full_name}} Have  No Graduation Details</h3>
+            {% else %}
+            <table>
+                <tr><th>Graduation Deatils</th></tr>
+                <tr>
+                    <td>Graduation Passed</td>
+                    <td>{{neet_student.grad_passed}}</td>
+                </tr>
+                <tr>
+                    <td>Graduation Year</td>
+                    <td>{{neet_student.grad_year}}</td>
+                </tr>
+                <tr>
+                    <td>Graduation Collage / University</td>
+                    <td>{{neet_student.grad_school}}</td>
+                </tr>
+                <tr>
+                    <td>Twelth Board</td>
+                    <td>{{neet_student.grad_board}}</td>
+                </tr>
+                <tr>
+                    <td>Graduation Total Mark</td>
+                    <td>{{neet_student.grad_fullmark}}</td>
+                </tr>
+                <tr>
+                    <td>Graduation Secured Mark</td>
+                    <td>{{neet_student.grad_securedmark}}</td>
+                </tr>
+                
+                <tr>
+                    <td>Graduation percentage</td>
+                    <td>{{neet_student.grad_percent}} %</td>
+                </tr>
+            </table>
+            {% endif %}
+            
+            <hr class='hrItem' />
+        </div>
+        
+        
+    </div>
+    </body>
+</html>

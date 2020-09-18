@@ -1,0 +1,33 @@
+{% extends "alluser_template/base.html" %}
+{% load static %}
+
+{% block title %}
+Notice
+{% endblock title %}
+{% block noticeactive %}active{% endblock noticeactive %}
+{% block body %}
+<div class="container" style="margin-top: 20px;">
+  {% for notice in notices %}
+  <div class="row notice_row">
+    <div class="col-sm-12">
+      <div class="notice_header">
+       <h4>NOTICE-{{notice.id}}</h4> 
+       <span>{{notice.created_at |date:'d-m-Y'}}</span>
+      </div>
+      
+      <div class="notice_content">
+        <p>{{notice.subject |safe}}</p>
+
+      <summary>{{notice.content |safe}}</summary>
+      </div>
+      
+
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% include 'alluser_template/footer.html' %}
+
+{% endblock body %}
+  
+  
